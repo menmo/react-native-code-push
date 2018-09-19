@@ -1,4 +1,5 @@
 const packageJson = require("./package.json");
+const fetch = require('whatwg-fetch-timeout');
 
 module.exports = {
   async request(verb, url, requestBody, callback) {
@@ -19,8 +20,10 @@ module.exports = {
       requestBody = JSON.stringify(requestBody);
     }
 
+
     try {
       const response = await fetch(url, {
+        timeout: 500,
         method: getHttpMethodName(verb),
         headers: headers,
         body: requestBody
